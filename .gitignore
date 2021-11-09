@@ -1,0 +1,12 @@
+
+.vs/
+
+bin/
+
+obj/
+
+libs/SFML/examples/
+
+libs/SFML/doc/
+
+libs/libs link.txt
