@@ -1,4 +1,3 @@
-![Glichteroids](background.jpg)
 
  # Asteroid SFML &#128064;
  
@@ -31,6 +30,13 @@ pierde una vida.💀
 * >✦ Los asteroides no colisionan entre sí (se traspasan).
 
 * >✦ El jugador arranca con 3 vidas, al perderla todas, el juego termina.
+
+#### `Gameplay`
+
+![Glichteroids](background.jpg)
+![Glichteroids](background.jpg)
+![Glichteroids](background.jpg)
+![Glichteroids](background.jpg)
 
 ## *`Implementaciones futuras`*
 
