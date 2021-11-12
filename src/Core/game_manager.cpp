@@ -11,6 +11,9 @@ using namespace std;
 static const string gameName = "Asteroid xD SFML version";
 static const string gameVersion = "v0.1";
 
+int screenWidth = 800;
+int screenHeight = 600;
+
 // Initialize game variables
 static void InitGame()
 {
@@ -49,7 +52,7 @@ void Run()
     string gameName = "Asteroid xD SFML";
     string gameVersion = "v0.1";
     
-    RenderWindow window(VideoMode(800, 600), gameName + " - " + gameVersion);
+    RenderWindow window(VideoMode(screenWidth, screenHeight), gameName + " - " + gameVersion);
 
     InitGame();
 
@@ -67,7 +70,6 @@ void Run()
             {
                 window.close();
             }
-
         }
 
         window.clear();
