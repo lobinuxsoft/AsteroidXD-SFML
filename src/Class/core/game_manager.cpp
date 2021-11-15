@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 
 #include "my_utils/games_utils.h"
+#include "class/game_objects/parallax_background.h"
 #include "class/scenes/main_menu_scene.h"
 
 using namespace sf;
@@ -18,6 +19,7 @@ Texture crossHairTex2;
 Sprite crossHairSprite1;
 Sprite crossHairSprite2;
 
+ParallaxBackground* parallax;
 MainMenuScene* mainMenuScene;
 
 
@@ -32,17 +34,22 @@ static void initGame()
     crossHairSprite1.setTexture(crossHairTex1);
     crossHairSprite1.setOrigin({ crossHairTex1.getSize().x * 0.5f, crossHairTex1.getSize().y * 0.5f });
     crossHairSprite1.setScale({ 0.6f,0.6f });
+    crossHairSprite1.setColor(Color(255, 154, 3));
 
     crossHairSprite2.setTexture(crossHairTex2);
     crossHairSprite2.setOrigin({ crossHairTex2.getSize().x * 0.5f, crossHairTex2.getSize().y * 0.5f });
     crossHairSprite2.setScale({ 0.5f,0.5f });
+    crossHairSprite2.setColor(Color(255, 78, 3));
 
+    parallax = new ParallaxBackground();
     mainMenuScene = new MainMenuScene();
 }
 
 // Update game (one frame)
 static void update(RenderWindow& window, float deltaTime)
 {
+    parallax->update(window, deltaTime);
+
     switch (sceneState)
     {
     case SceneState::MainMenu:
@@ -63,6 +70,7 @@ static void update(RenderWindow& window, float deltaTime)
 // Unload game variables
 static void unloadGame()
 {
+    delete parallax;
     delete mainMenuScene;
 }
 

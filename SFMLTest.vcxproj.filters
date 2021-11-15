@@ -36,6 +36,9 @@
     <ClCompile Include="src\class\ui_objects\button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\class\game_objects\parallax_background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\class\core\game_manager.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\class\ui_objects\button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\game_objects\parallax_background.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
