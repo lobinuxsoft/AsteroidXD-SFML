@@ -8,6 +8,7 @@ class CreditsScene : public Scene
 private:
 	Font font;
 	Text sceneName;
+	Text gameVersionText;
 
 	Button* matiasButton;
 	Button* ramiroButton;

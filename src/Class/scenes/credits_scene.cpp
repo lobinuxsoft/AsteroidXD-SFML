@@ -10,6 +10,12 @@ CreditsScene::CreditsScene()
 	sceneName.setOrigin(sceneName.getLocalBounds().width * 0.5f, 0);
 	sceneName.setPosition(screenWidth * 0.5f, 0);
 
+	gameVersionText.setFont(font);
+	gameVersionText.setString(gameVersion);
+	gameVersionText.setCharacterSize(15);
+	gameVersionText.setOrigin(gameVersionText.getLocalBounds().width, gameVersionText.getLocalBounds().height);
+	gameVersionText.setPosition(screenWidth - 15, screenHeight - 15);
+
 	matiasButton = new Button(Vector2f(screenWidth * 0.5f, screenHeight * 0.2f), "Matias Galarza (Pilot)", 25);
 	matiasButton->setFont(font);
 	matiasButton->setPivot({ 0.5f,0.5f });
@@ -68,6 +74,7 @@ CreditsScene::~CreditsScene()
 void CreditsScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime)
 {
 	window.draw(sceneName);
+	window.draw(gameVersionText);
 
 	if (matiasButton->isClick())
 	{
