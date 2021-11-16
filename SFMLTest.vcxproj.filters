@@ -45,6 +45,12 @@
     <ClCompile Include="src\class\scenes\tutorial_scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\class\game_objects\meteor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\class\scenes\gameplay_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\class\core\game_manager.h">
@@ -78,6 +84,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\class\scenes\tutorial_scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\game_objects\meteor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\scenes\gameplay_scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

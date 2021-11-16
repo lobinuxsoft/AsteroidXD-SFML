@@ -33,9 +33,9 @@ void Ship::moveForward(float deltaTime)
 		acceleration = (acceleration > 0) ? acceleration - deltaTime : 0;
 	}
 
-	//SetSoundVolume(engineSfx, (Vector2Length(velocity) * acceleration) * 0.01f);
-	//SetSoundPitch(engineSfx, (Vector2Length(velocity) * acceleration) * 0.15f);
-	//if (!IsSoundPlaying(engineSfx)) PlaySound(engineSfx);
+	engineSfx.setVolume((Vector2Length(velocity) * acceleration) * 0.01f);
+	engineSfx.setPitch((Vector2Length(velocity) * acceleration) * 0.15f);
+	if (!engineSfx.getStatus() == SoundSource::Status::Playing) engineSfx.play();
 
 	velocity = { Clamp(velocity.x, -maxVelocity, maxVelocity), Clamp(velocity.y, -maxVelocity, maxVelocity) };
 
@@ -47,11 +47,11 @@ void Ship::screenLimitsLogic()
 	Vector2f position = sprite.getPosition();
 
 	// Collision logic: player vs walls
-	if (position.x > screenWidth + radius) position.x = -radius;
-	else if (position.x < -radius) position.x = screenWidth + radius;
+	if (position.x > screenWidth + getRadius()) position.x = -getRadius();
+	else if (position.x < -getRadius()) position.x = screenWidth + getRadius();
 
-	if (position.y > (screenHeight + radius)) position.y = -radius;
-	else if (position.y < -radius) position.y = screenHeight + radius;
+	if (position.y > (screenHeight + getRadius())) position.y = -getRadius();
+	else if (position.y < -getRadius()) position.y = screenHeight + getRadius();
 
 	sprite.setPosition(position);
 }
@@ -65,9 +65,30 @@ Ship::Ship(Texture& texture, Vector2f position, float rotation, Vector2f scale)
 	this->sprite.setScale(scale);
 }
 
+Ship::~Ship()
+{
+	if (engineSfx.getStatus() == SoundSource::Status::Playing) engineSfx.stop();
+}
+
+void Ship::setEngineSfx(SoundBuffer& buffer)
+{
+	engineSfx.setLoop(true);
+	engineSfx.setBuffer(buffer);
+}
+
+void Ship::setShieldSfx(SoundBuffer& buffer)
+{
+	shieldSfx.setBuffer(buffer);
+}
+
+void Ship::setExplodeSfx(SoundBuffer& buffer)
+{
+	explodeSfx.setBuffer(buffer);
+}
+
 float Ship::getRadius()
 {
-	return Vector2Length(this->sprite.getScale());
+	return Vector2Length(this->sprite.getScale()) * 0.5f;
 }
 
 int Ship::getShield()
@@ -100,23 +121,36 @@ float Ship::getMaxSpeed()
 
 bool Ship::damageShip(Vector2f hitPos)
 {
-	//SetSoundPitch(shieldSfx, ((float)GetRandomValue(0, 45) / 100) + 1);
-	//PlaySound(shieldSfx);
+	shieldSfx.setPitch(static_cast<float>(RandomRange(0, 45)/100) + 1);
+	shieldSfx.play();
 	Vector2f pushDir = this->sprite.getPosition() - hitPos;
 	timer = 0.5f;
-	//color = RED;
+	sprite.setColor(Color::Red);
 	acceleration = 0;
 	velocity.x += Vector2Normalize(pushDir).x;
 	velocity.y -= Vector2Normalize(pushDir).y;
 	shield--;
 
-	//if (shield <= 0) PlaySound(explodeSfx);
+	if (shield <= 0)
+	{
+		if (engineSfx.getStatus() == SoundSource::Status::Playing) engineSfx.stop();
+		explodeSfx.play();
+	}
 
 	return shield <= 0;
 }
 
 void Ship::update(float deltaTime)
 {
+	if (timer > 0)
+	{
+		timer -= deltaTime;
+	}
+	else
+	{
+		sprite.setColor(Color::White);
+	}
+
 	lookAtMousePoint();
 	moveForward(deltaTime);
 	screenLimitsLogic();

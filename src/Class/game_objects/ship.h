@@ -8,7 +8,6 @@ class Ship
 {
 private:
     const int maxShield = 100;
-    const float defaultRadius = 18.0;
     const float maxVelocity = 3;
 
     Sprite sprite;
@@ -16,6 +15,7 @@ private:
     Sound engineSfx;
     Sound shieldSfx;
     Sound explodeSfx;
+
     Vector2f velocity{ 0,0 };
     Vector2f dir{ 0,0 };
     Vector2f speed{ 0,0 };
@@ -23,8 +23,6 @@ private:
     float maxAcceleration = 150.0f;
     int shield = maxShield;
     float acceleration = 0.0f;
-    /*float rotation = 0.0f;*/
-    float radius = defaultRadius;
     float timer = 0.0f;
 
 private:
@@ -34,6 +32,10 @@ private:
 
 public:
     Ship(Texture& texture, Vector2f position, float rotation, Vector2f scale);
+    ~Ship();
+    void setEngineSfx(SoundBuffer& buffer);
+    void setShieldSfx(SoundBuffer& buffer);
+    void setExplodeSfx(SoundBuffer& buffer);
     float getRadius();
     int getShield();
     int getMaxShield();

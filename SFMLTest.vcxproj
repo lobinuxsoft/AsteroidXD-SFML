@@ -101,6 +101,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\class\scenes\gameplay_scene.cpp" />
+    <ClCompile Include="src\class\game_objects\meteor.cpp" />
     <ClCompile Include="src\class\scenes\credits_scene.cpp" />
     <ClCompile Include="src\class\game_objects\parallax_background.cpp" />
     <ClCompile Include="src\class\ui_objects\button.cpp" />
@@ -113,6 +115,8 @@
     <ClCompile Include="src\class\scenes\tutorial_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\class\scenes\gameplay_scene.h" />
+    <ClInclude Include="src\class\game_objects\meteor.h" />
     <ClInclude Include="src\class\scenes\credits_scene.h" />
     <ClInclude Include="src\class\game_objects\parallax_background.h" />
     <ClInclude Include="src\class\ui_objects\button.h" />

@@ -10,3 +10,5 @@
 
 float Clamp(float value, float min, float max);
 int Clamp(int value, int min, int max);
+
+int RandomRange(int min, int max);
