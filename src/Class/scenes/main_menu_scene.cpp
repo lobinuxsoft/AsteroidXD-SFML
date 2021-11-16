@@ -2,7 +2,7 @@
 
 MainMenuScene::MainMenuScene()
 {
-	mousePosition = Vector2f(0, 0);
+	//mousePosition = Vector2f(0, 0);
 	font.loadFromFile("resources/fonts/Roboto-Medium.ttf");
 
 	gameTitleText.setFont(font);
@@ -44,7 +44,7 @@ MainMenuScene::~MainMenuScene()
 
 void MainMenuScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime)
 {
-	mousePosition = static_cast<Vector2f>(Mouse::getPosition(window));
+	//mousePosition = static_cast<Vector2f>(Mouse::getPosition(window));
 
 	window.draw(gameTitleText);
 	window.draw(gameVersionText);

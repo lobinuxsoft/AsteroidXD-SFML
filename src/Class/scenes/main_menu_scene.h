@@ -9,7 +9,7 @@ using namespace std;
 class MainMenuScene : public Scene
 {
 private:
-	Vector2f mousePosition;
+	//Vector2f mousePosition;
 	Font font;
 
 	Text gameTitleText;
