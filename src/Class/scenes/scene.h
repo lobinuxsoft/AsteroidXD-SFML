@@ -7,6 +7,8 @@ using namespace sf;
 class Scene
 {
 public:
+	Scene() { };
+	virtual ~Scene() { };
 	virtual void updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime) = 0;
 };
 

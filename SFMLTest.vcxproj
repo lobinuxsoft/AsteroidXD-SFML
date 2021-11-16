@@ -110,6 +110,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\my_utils\maths_utils.cpp" />
     <ClCompile Include="src\my_utils\vector2_utils.cpp" />
+    <ClCompile Include="src\class\scenes\tutorial_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\class\scenes\credits_scene.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="src\my_utils\games_utils.h" />
     <ClInclude Include="src\my_utils\maths_utils.h" />
     <ClInclude Include="src\my_utils\vector2_utils.h" />
+    <ClInclude Include="src\class\scenes\tutorial_scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,7 +24,7 @@ private:
 
 public:
 	CreditsScene();
-	~CreditsScene();
+	~CreditsScene() override;
 
 	// Inherited via Scene
 	virtual void updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime) override;

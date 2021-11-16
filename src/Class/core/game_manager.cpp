@@ -7,6 +7,7 @@
 #include "class/game_objects/parallax_background.h"
 #include "class/scenes/main_menu_scene.h"
 #include "class/scenes/credits_scene.h"
+#include "class/scenes/tutorial_scene.h"
 
 using namespace sf;
 using namespace std;
@@ -24,7 +25,7 @@ ParallaxBackground* parallax;
 
 MainMenuScene* mainMenuScene;
 CreditsScene* creditsScene;
-
+TutorialScene* tutorialScene;
 
 // Initialize game variables
 static void initGame()
@@ -47,6 +48,7 @@ static void initGame()
     parallax = new ParallaxBackground();
     mainMenuScene = new MainMenuScene();
     creditsScene = new CreditsScene();
+    tutorialScene = new TutorialScene();
 }
 
 // Update game (one frame)
@@ -62,6 +64,7 @@ static void update(RenderWindow& window, float deltaTime)
     case SceneState::Gameplay:
         break;
     case SceneState::Tutorial:
+        tutorialScene->updateAndDraw(sceneState, window, deltaTime);
         break;
     case SceneState::Credits:
         creditsScene->updateAndDraw(sceneState, window, deltaTime);
@@ -78,6 +81,7 @@ static void unloadGame()
     delete parallax;
     delete mainMenuScene;
     delete creditsScene;
+    delete tutorialScene;
 }
 
 static void CrossHairBehaviour(RenderWindow& window, float deltaTime)

@@ -22,7 +22,7 @@ private:
 
 public:
 	MainMenuScene();
-	~MainMenuScene();
+	~MainMenuScene() override;
 
 	// Inherited via Scene
 	virtual void updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime) override;

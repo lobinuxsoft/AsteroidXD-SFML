@@ -42,6 +42,9 @@
     <ClCompile Include="src\class\scenes\credits_scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\class\scenes\tutorial_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\class\core\game_manager.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\class\scenes\credits_scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\class\scenes\tutorial_scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
