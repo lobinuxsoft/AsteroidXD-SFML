@@ -8,6 +8,7 @@
 #include "class/scenes/main_menu_scene.h"
 #include "class/scenes/credits_scene.h"
 #include "class/scenes/tutorial_scene.h"
+#include "class/scenes/gameplay_scene.h"
 
 using namespace sf;
 using namespace std;
@@ -26,6 +27,7 @@ ParallaxBackground* parallax;
 MainMenuScene* mainMenuScene;
 CreditsScene* creditsScene;
 TutorialScene* tutorialScene;
+GameplayScene* gameplayScene;
 
 // Initialize game variables
 static void initGame()
@@ -49,6 +51,7 @@ static void initGame()
     mainMenuScene = new MainMenuScene();
     creditsScene = new CreditsScene();
     tutorialScene = new TutorialScene();
+    gameplayScene = new GameplayScene();
 }
 
 // Update game (one frame)
@@ -62,6 +65,7 @@ static void update(RenderWindow& window, float deltaTime)
         mainMenuScene->updateAndDraw(sceneState, window, deltaTime);
         break;
     case SceneState::Gameplay:
+        gameplayScene->updateAndDraw(sceneState, window, deltaTime);
         break;
     case SceneState::Tutorial:
         tutorialScene->updateAndDraw(sceneState, window, deltaTime);
@@ -82,6 +86,7 @@ static void unloadGame()
     delete mainMenuScene;
     delete creditsScene;
     delete tutorialScene;
+    delete gameplayScene;
 }
 
 static void CrossHairBehaviour(RenderWindow& window, float deltaTime)

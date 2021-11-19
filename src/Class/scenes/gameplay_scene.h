@@ -35,5 +35,8 @@ private:
 public:
 	GameplayScene();
 	~GameplayScene();
+
+	// Inherited via Scene
+	virtual void updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime) override;
 };
 

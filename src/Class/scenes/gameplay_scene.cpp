@@ -32,3 +32,9 @@ GameplayScene::~GameplayScene()
     }
     smallMeteor.clear();
 }
+
+void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime)
+{
+    ship->update(deltaTime);
+    ship->draw(window);
+}
