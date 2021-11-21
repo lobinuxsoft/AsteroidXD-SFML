@@ -1,12 +1,13 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 
 using namespace sf;
 
 class Button
 {
 private:
-	//Sound clickSfx;
+	Sound clickSfx;
 	Text text;
 	int fontSize = 10;
 	Color normalColor = Color::White;
@@ -29,6 +30,7 @@ public:
 	void setPivot(Vector2f pivot);
 	void setFont(Font& font);
 	void setText(String text);
+	void setClickSfx(SoundBuffer& buffer);
 	bool isClick();
 	void update(RenderWindow& window);
 };

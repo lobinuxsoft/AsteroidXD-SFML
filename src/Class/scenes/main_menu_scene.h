@@ -15,6 +15,12 @@ private:
 	Text gameTitleText;
 	Text gameVersionText;
 
+	SoundBuffer clickBufferSfx;
+	SoundBuffer clickPlayBufferSfx;
+	SoundBuffer clickTutorialBufferSfx;
+
+	Music music;
+
 	Button* playButton;
 	Button* tutorialButton;
 	Button* creditsButton;

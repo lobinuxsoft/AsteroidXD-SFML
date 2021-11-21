@@ -30,8 +30,14 @@ void Button::setText(String text)
 	this->text.setString(text);
 }
 
+void Button::setClickSfx(SoundBuffer& buffer)
+{
+	this->clickSfx.setBuffer(buffer);
+}
+
 bool Button::isClick()
 {
+	if (click) clickSfx.play();
 	return click;
 }
 

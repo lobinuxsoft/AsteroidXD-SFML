@@ -16,8 +16,11 @@ TutorialScene::TutorialScene()
 	tutorialDescriptionText.setOrigin(tutorialDescriptionText.getLocalBounds().width * 0.5f, 0);
 	tutorialDescriptionText.setPosition(screenWidth * 0.5f, screenHeight * 0.1f);
 
+	clickBufferSfx.loadFromFile("resources/sfx/select_003.ogg");
+
 	backButton = new Button(Vector2f(screenWidth * 0.5f, screenHeight * 0.9f), "Back to main", 25);
 	backButton->setFont(font);
+	backButton->setClickSfx(clickBufferSfx);
 	backButton->setPivot({ 0.5f,0.5f });
 }
 

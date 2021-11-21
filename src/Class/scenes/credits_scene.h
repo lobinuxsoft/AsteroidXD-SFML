@@ -10,6 +10,8 @@ private:
 	Text sceneName;
 	Text gameVersionText;
 
+	SoundBuffer clickBufferSfx;
+
 	Button* matiasButton;
 	Button* ramiroButton;
 	Button* kenneyButton1;

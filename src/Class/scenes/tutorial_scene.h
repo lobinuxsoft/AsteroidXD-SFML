@@ -29,6 +29,8 @@ DISFRUTA EL JUEGO xD
 	Text tutorialDescriptionText;
 	Button* backButton;
 
+	SoundBuffer clickBufferSfx;
+
 public:
 	TutorialScene();
 	~TutorialScene() override;

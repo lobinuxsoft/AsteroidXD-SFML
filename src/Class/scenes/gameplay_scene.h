@@ -24,6 +24,10 @@ private:
 	Button* pauseButton;
 	HealthBar* healtBar;
 
+	SoundBuffer clickBufferSfx;
+	SoundBuffer clickPlayBufferSfx;
+	Music music;
+
 	// La nave que se usa
 	Texture shipTexture;
 	SoundBuffer engineSfxBuffer;

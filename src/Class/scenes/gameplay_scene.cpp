@@ -222,6 +222,10 @@ void GameplayScene::bulletsCollideWhitMeteors()
 GameplayScene::GameplayScene()
 {
 
+    music.openFromFile("resources/music/fight.ogg");
+    music.setLoop(true);
+    music.setVolume(25);
+
     // Ship textures and sounds
     shipTexture.loadFromFile("resources/images/ship_G.png");
     shipTexture.setSmooth(true);
@@ -248,14 +252,20 @@ GameplayScene::GameplayScene()
     text.setPosition(screenWidth * 0.5f, screenHeight * 0.5f);
     healtBar = new HealthBar(Vector2f(screenWidth * 0.5f, 15), ship->getMaxShield(), Color(66, 117, 245), Color(66, 84, 245));
 
+    clickBufferSfx.loadFromFile("resources/sfx/select_003.ogg");
+    clickPlayBufferSfx.loadFromFile("resources/sfx/confirmation_002.ogg");
+
     continueButton = new Button({ screenWidth * 0.5f, screenHeight * 0.55f }, "CONTINUE", 20);
     continueButton->setFont(font);
+    continueButton->setClickSfx(clickPlayBufferSfx);
     continueButton->setPivot({ 0.5f, 1 });
     backButton = new Button({ screenWidth * 0.5f, screenHeight * 0.6f }, "VOLVER", 20);
     backButton->setFont(font);
+    backButton->setClickSfx(clickBufferSfx);
     backButton->setPivot({ 0.5f, 1 });
     pauseButton = new Button({ screenWidth * 0.95f, screenHeight * 0.05f }, "II", 40, Color::Blue);
     pauseButton->setFont(font);
+    pauseButton->setClickSfx(clickBufferSfx);
     pauseButton->setPivot({ 1,1 });
 
     //Meteors Creation
@@ -289,14 +299,6 @@ GameplayScene::~GameplayScene()
     delete backButton;
     delete continueButton;
     delete pauseButton;
-
-    /*font.~Font();
-    shipTexture.~Texture();
-    engineSfxBuffer.~SoundBuffer();
-    shiledSfxBuffer.~SoundBuffer();
-    explodeShipSfxBuffer.~SoundBuffer();
-    meteorTexture.~Texture();
-    meteorExplosion.~SoundBuffer();*/
 }
 
 void GameplayScene::resetGame()
@@ -313,6 +315,8 @@ void GameplayScene::resetGame()
 
 void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime)
 {
+    if (music.getStatus() != SoundSource::Status::Playing) music.play();
+
     // Update first
     if(!gameOver)
     {
@@ -403,6 +407,7 @@ void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, 
 
             if (backButton->isClick())
             {
+                music.stop();
                 sceneState = SceneState::MainMenu;
                 resetGame();
             }
@@ -422,6 +427,7 @@ void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, 
         
         if (backButton->isClick())
         {
+            music.stop();
             sceneState = SceneState::MainMenu;
             resetGame();
         }
