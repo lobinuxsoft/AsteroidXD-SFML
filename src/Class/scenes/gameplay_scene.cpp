@@ -81,7 +81,7 @@ void GameplayScene::createMeteors()
             static_cast<float>(RandomRange(0, 360)),
             Vector2f(1,1),
             Vector2f(velx, vely),
-            static_cast<float>(meteorsSpeed), true);
+            static_cast<float>(meteorsSpeed + (gameLevel * meteorsSpeed)), true);
 
         newBigMeteor->setExplosionSfx(meteorExplosion);
 
@@ -96,7 +96,7 @@ void GameplayScene::createMeteors()
             static_cast<float>(RandomRange(0, 360)),
             Vector2f(0.5f, 0.5f),
             Vector2f(0, 0),
-            static_cast<float>(meteorsSpeed), false);
+            static_cast<float>(meteorsSpeed + (gameLevel * meteorsSpeed)), false);
 
         newMediumMeteor->setExplosionSfx(meteorExplosion);
 
@@ -111,7 +111,7 @@ void GameplayScene::createMeteors()
             static_cast<float>(RandomRange(0, 360)),
             Vector2f(0.25f, 0.25f),
             Vector2f(0, 0),
-            static_cast<float>(meteorsSpeed), false);
+            static_cast<float>(meteorsSpeed + (gameLevel * meteorsSpeed)), false);
 
         newSmallMeteor->setExplosionSfx(meteorExplosion);
 
@@ -179,7 +179,7 @@ void GameplayScene::bulletsCollideWhitMeteors()
         }
     }
 
-    for (size_t b = 0; b < bigMeteor.size(); b++)
+    for (size_t b = 0; b < mediumMeteor.size(); b++)
     {
         if (mediumMeteor[b]->getActive() && ship->intersectBulletsWithBound(mediumMeteor[b]->getBounds()))
         {
@@ -190,20 +190,31 @@ void GameplayScene::bulletsCollideWhitMeteors()
             {
                 if (smallMeteorsCount % 2 == 0)
                 {
-                    smallMeteor[midMeteorsCount]->setPosition(mediumMeteor[b]->getPosition());
-                    smallMeteor[midMeteorsCount]->setSpeedByAngle(ship->getRotation(), true);
+                    smallMeteor[smallMeteorsCount]->setPosition(mediumMeteor[b]->getPosition());
+                    smallMeteor[smallMeteorsCount]->setSpeedByAngle(ship->getRotation(), true);
                 }
                 else
                 {
-                    smallMeteor[midMeteorsCount]->setPosition(mediumMeteor[b]->getPosition());
-                    smallMeteor[midMeteorsCount]->setSpeedByAngle(ship->getRotation());
+                    smallMeteor[smallMeteorsCount]->setPosition(mediumMeteor[b]->getPosition());
+                    smallMeteor[smallMeteorsCount]->setSpeedByAngle(ship->getRotation());
                 }
 
-                smallMeteor[midMeteorsCount]->setActive(true);
+                smallMeteor[smallMeteorsCount]->setActive(true);
                 smallMeteorsCount++;
             }
 
             b = maxMediumMeteors;
+        }
+    }
+
+    for (int c = 0; c < maxSmallMeteors; c++)
+    {
+        if (smallMeteor[c]->getActive() && ship->intersectBulletsWithBound(smallMeteor[c]->getBounds()))
+        {
+            smallMeteor[c]->explode();
+            destroyedMeteorsCount++;
+
+            c = maxSmallMeteors;
         }
     }
 }
@@ -329,6 +340,9 @@ void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, 
 
             meteorsCollideWhitShip();
             bulletsCollideWhitMeteors();
+
+            victory = destroyedMeteorsCount == maxBigMeteors + maxMediumMeteors + maxSmallMeteors;
+
             healtBar->setCurValue(ship->getShield());
         }
     }
@@ -387,7 +401,11 @@ void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, 
                 resetGame();
             }
 
-            if (backButton->isClick()) sceneState = SceneState::MainMenu;
+            if (backButton->isClick())
+            {
+                sceneState = SceneState::MainMenu;
+                resetGame();
+            }
         }
     }
     else
@@ -402,6 +420,10 @@ void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, 
 
         if (continueButton->isClick()) resetGame();
         
-        if (backButton->isClick()) sceneState = SceneState::MainMenu;
+        if (backButton->isClick())
+        {
+            sceneState = SceneState::MainMenu;
+            resetGame();
+        }
     }
 }

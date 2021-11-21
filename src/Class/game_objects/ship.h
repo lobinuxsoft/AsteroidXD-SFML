@@ -12,7 +12,7 @@ private:
     const int maxShield = 100;
     const float maxVelocity = 0.05f;
     const int bulletsAmount = 100;
-    const float waitToShoot = 0.01f;
+    const float waitToShoot = 0.0025f;
     float shootCountDown = waitToShoot;
 
     CircleShape* shape;

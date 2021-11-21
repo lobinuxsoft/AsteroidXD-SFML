@@ -17,7 +17,7 @@ MainMenuScene::MainMenuScene()
 	gameVersionText.setOrigin(gameVersionText.getLocalBounds().width, gameVersionText.getLocalBounds().height);
 	gameVersionText.setPosition(static_cast<float>(screenWidth - 15), static_cast<float>(screenHeight - 15));
 
-	playButton = new Button(Vector2f(screenWidth * 0.5f, screenHeight * 0.5f), "JUGAR NIVEL" + to_string(gameLevel), 25);
+	playButton = new Button(Vector2f(screenWidth * 0.5f, screenHeight * 0.5f), "JUGAR", 25);
 	playButton->setFont(font);
 	playButton->setPivot({ 0.5f,0.5f });
 

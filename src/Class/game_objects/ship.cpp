@@ -81,7 +81,7 @@ void Ship::shootBullet()
 					);
 
 					shoots[i]->setActive(true);
-					shoots[i]->setSpeed(getRotation(), getMaxSpeed() * 20);
+					shoots[i]->setSpeed(getRotation(), getMaxSpeed() * 50);
 
 					laserSfx.setPitch(static_cast<float>(RandomRange(80, 120)) / 100.0f);
 					laserSfx.play();
@@ -124,7 +124,7 @@ Ship::Ship(Texture& texture, Vector2f position, float rotation, Vector2f scale)
 
 	for (size_t i = 0; i < bulletsAmount; i++)
 	{
-		shoots.push_back(new Shoot({ 0,0 }, { 0,0 }, 0, false, 5));
+		shoots.push_back(new Shoot({ 0,0 }, { 0,0 }, 0, false, 2));
 	}
 }
 
@@ -187,6 +187,7 @@ void Ship::resetState()
 
 	for (Shoot* s : shoots)
 	{
+		s->setActive(false);
 		s->resetLifeSpawn();
 	}
 }

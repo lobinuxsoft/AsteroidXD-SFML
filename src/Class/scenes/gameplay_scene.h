@@ -11,6 +11,7 @@
 class GameplayScene : public Scene
 {
 private:
+	int gameLevel = 1;
 	bool gameOver = false;
 	bool victory = false;
 	bool pause = false;
@@ -34,7 +35,7 @@ private:
 	// Los disparos
 
 	// Los meteoros
-	const int meteorsSpeed = 300;
+	const int meteorsSpeed = 1000;
 	Texture meteorTexture;
 	SoundBuffer meteorExplosion;
 	vector<Meteor*> bigMeteor;

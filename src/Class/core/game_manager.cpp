@@ -29,6 +29,8 @@ CreditsScene* creditsScene;
 TutorialScene* tutorialScene;
 GameplayScene* gameplayScene;
 
+float deltaTime = 0;
+
 // Initialize game variables
 static void initGame()
 {
@@ -109,7 +111,7 @@ void Run()
     initGame();
 
     Clock deltaClock;
-    float deltaTime = 0;
+    deltaTime = 0;
 
     while (window.isOpen())
     {
