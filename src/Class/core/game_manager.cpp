@@ -103,8 +103,6 @@ static void CrossHairBehaviour(RenderWindow& window, float deltaTime)
 
 void Run()
 {
-    // Initialization (Note windowTitle is unused on Android)
-    //---------------------------------------------------------
     
     RenderWindow window(VideoMode(screenWidth, screenHeight), gameName + " - " + gameVersion);
 
@@ -116,7 +114,7 @@ void Run()
     while (window.isOpen())
     {
         // La cantidad de segundos que pasan en un frame
-        deltaTime = deltaClock.restart().asSeconds() / 60;
+        deltaTime = deltaClock.restart().asSeconds() / 30;
         Event event;
 
         while (window.pollEvent(event))

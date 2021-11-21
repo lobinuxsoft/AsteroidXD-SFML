@@ -3,20 +3,38 @@
 
 #include "class/game_objects/ship.h"
 #include "class/game_objects/meteor.h"
+#include "class/ui_objects/health_bar.h"
+#include "class/ui_objects/button.h"
+#include "my_utils/maths_utils.h"
+#include "my_utils/vector2_utils.h"
 
 class GameplayScene : public Scene
 {
 private:
+	bool gameOver = false;
+	bool victory = false;
+	bool pause = false;
+	
+	// UI
+	Font font;
+	Text text;
+	Button* continueButton;
+	Button* backButton;
+	Button* pauseButton;
+	HealthBar* healtBar;
+
 	// La nave que se usa
 	Texture shipTexture;
 	SoundBuffer engineSfxBuffer;
 	SoundBuffer shiledSfxBuffer;
 	SoundBuffer explodeShipSfxBuffer;
+	SoundBuffer laserShipSfxBuffer;
 	Ship* ship;
 
 	// Los disparos
 
 	// Los meteoros
+	const int meteorsSpeed = 300;
 	Texture meteorTexture;
 	SoundBuffer meteorExplosion;
 	vector<Meteor*> bigMeteor;
@@ -32,10 +50,15 @@ private:
 	int smallMeteorsCount = 0;
 	int destroyedMeteorsCount = 0;
 
+	void createMeteors();
+	void meteorsCollideWhitShip();
+	void bulletsCollideWhitMeteors();
+
 public:
 	GameplayScene();
 	~GameplayScene();
 
+	void resetGame();
 	// Inherited via Scene
 	virtual void updateAndDraw(SceneState& sceneState, RenderWindow& window, float deltaTime) override;
 };

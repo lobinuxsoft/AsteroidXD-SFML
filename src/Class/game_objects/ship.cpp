@@ -8,23 +8,23 @@ void Ship::lookAtMousePoint()
 {
 	// Player logic: rotation
 	
-	if (Vector2Length(mousePos - this->sprite.getPosition()) > 40.f)
+	if (Vector2Length(mousePos - this->getPosition()) > 40.f)
 	{
-		this->sprite.setRotation(Vector2Angle(this->sprite.getPosition(), mousePos) + 90);
-		dir = Vector2Normalize(mousePos - this->sprite.getPosition());
+		this->setRotation(Vector2Angle(this->getPosition(), mousePos) + 90);
+		dir = Vector2Normalize(mousePos - this->getPosition());
 	}
 }
 
 void Ship::moveForward(float deltaTime)
 {
 	// Player logic: acceleration
-	if (Mouse::isButtonPressed(Mouse::Left))
+	if (Mouse::isButtonPressed(Mouse::Right))
 	{
 		// Player logic: speed
 		speed.x = dir.x;
 		speed.y = -dir.y;
 
-		velocity = velocity + Vector2f((speed.x * acceleration) * deltaTime, (speed.y * acceleration) * deltaTime);
+		velocity = velocity + Vector2f((speed.x * acceleration), (speed.y * acceleration)) * deltaTime;
 
 		if (acceleration < 1) acceleration += maxAcceleration * deltaTime;
 	}
@@ -33,47 +33,118 @@ void Ship::moveForward(float deltaTime)
 		acceleration = (acceleration > 0) ? acceleration - deltaTime : 0;
 	}
 
-	engineSfx.setVolume((Vector2Length(velocity) * acceleration) * 0.01f);
-	engineSfx.setPitch((Vector2Length(velocity) * acceleration) * 0.15f);
-	if (!engineSfx.getStatus() == SoundSource::Status::Playing) engineSfx.play();
+	//engineSfx.setVolume((Vector2Length(velocity) * acceleration) * 0.1f);
+	//engineSfx.setVolume(1.0f);
+	engineSfx.setPitch(abs((Vector2Length(velocity) * acceleration)) * 0.5f);
+
+	if(engineSfx.getStatus() != SoundSource::Status::Playing)
+		engineSfx.play();
 
 	velocity = { Clamp(velocity.x, -maxVelocity, maxVelocity), Clamp(velocity.y, -maxVelocity, maxVelocity) };
 
-	sprite.setPosition(Vector2f(sprite.getPosition().x + velocity.x, sprite.getPosition().y - velocity.y));
+	setPosition(Vector2f(getPosition().x + velocity.x, getPosition().y - velocity.y));
 }
 
 void Ship::screenLimitsLogic()
 {
-	Vector2f position = sprite.getPosition();
+	Vector2f position = getPosition();
 
 	// Collision logic: player vs walls
-	if (position.x > screenWidth + getRadius()) position.x = -getRadius();
-	else if (position.x < -getRadius()) position.x = screenWidth + getRadius();
+	if (position.x > screenWidth + Vector2Length(getScale()))
+		position.x = -Vector2Length(getScale());
+	else if (position.x < -Vector2Length(getScale()))
+		position.x = screenWidth + Vector2Length(getScale());
 
-	if (position.y > (screenHeight + getRadius())) position.y = -getRadius();
-	else if (position.y < -getRadius()) position.y = screenHeight + getRadius();
+	if (position.y > (screenHeight + Vector2Length(getScale())))
+		position.y = -Vector2Length(getScale());
+	else if (position.y < -Vector2Length(getScale()))
+		position.y = screenHeight + Vector2Length(getScale());
 
-	sprite.setPosition(position);
+	setPosition(position);
+}
+
+void Ship::shootBullet()
+{
+	if (shootCountDown <= 0)
+	{
+		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+			for (int i = 0; i < bulletsAmount; i++)
+			{
+				if (!shoots[i]->getActive())
+				{
+					shoots[i]->setPosition(
+						Vector2f(
+							getPosition().x + static_cast<float>(sin(getRotation() * DEG2RAD) * getRadius()),
+							getPosition().y - static_cast<float>(cos(getRotation() * DEG2RAD) * getRadius())
+						)
+					);
+
+					shoots[i]->setActive(true);
+					shoots[i]->setSpeed(getRotation(), getMaxSpeed() * 20);
+
+					laserSfx.setPitch(static_cast<float>(RandomRange(80, 120)) / 100.0f);
+					laserSfx.play();
+					shootCountDown = waitToShoot;
+					break;
+				}
+			}
+		}
+	}
+}
+
+void Ship::bulletsUpdate(float deltaTime)
+{
+	if (shootCountDown > 0)
+	{
+		shootCountDown -= deltaTime;
+	}
+
+	// Shot logic
+	for (int i = 0; i < bulletsAmount; i++)
+	{
+		if (shoots[i]->getActive())
+		{
+			shoots[i]->update(deltaTime);
+		}
+	}
 }
 
 Ship::Ship(Texture& texture, Vector2f position, float rotation, Vector2f scale)
 {
-	this->sprite.setTexture(texture);
-	this->sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
-	this->sprite.setPosition(position);
-	this->sprite.setRotation(rotation);
-	this->sprite.setScale(scale);
+	this->setTexture(texture);
+	this->setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
+	this->setPosition(position);
+	this->setRotation(rotation);
+	this->setScale(scale);
+
+	shape = new CircleShape(getRadius());
+	shape->setOrigin(Vector2f(getRadius(), getRadius()));
+	shape->setFillColor(Color(0, 255, 0, 125));
+
+	for (size_t i = 0; i < bulletsAmount; i++)
+	{
+		shoots.push_back(new Shoot({ 0,0 }, { 0,0 }, 0, false, 5));
+	}
 }
 
 Ship::~Ship()
 {
+	delete shape;
+
+	for (Shoot* s : shoots)
+	{
+		delete s;
+	}
+	shoots.clear();
+
 	if (engineSfx.getStatus() == SoundSource::Status::Playing) engineSfx.stop();
 }
 
 void Ship::setEngineSfx(SoundBuffer& buffer)
 {
-	engineSfx.setLoop(true);
 	engineSfx.setBuffer(buffer);
+	engineSfx.setLoop(true);
 }
 
 void Ship::setShieldSfx(SoundBuffer& buffer)
@@ -86,13 +157,14 @@ void Ship::setExplodeSfx(SoundBuffer& buffer)
 	explodeSfx.setBuffer(buffer);
 }
 
-float Ship::getRadius()
+void Ship::setLaserSfx(SoundBuffer& buffer)
 {
-	return Vector2Length(this->sprite.getScale()) * 0.5f;
+	laserSfx.setBuffer(buffer);
 }
 
 int Ship::getShield()
 {
+	this->shield = this->shield > 0 ? this->shield : 0;
 	return this->shield;
 }
 
@@ -112,6 +184,21 @@ void Ship::resetState()
 	this->speed = { 0,0 };
 	this->acceleration = 0;
 	this->shield = maxShield;
+
+	for (Shoot* s : shoots)
+	{
+		s->resetLifeSpawn();
+	}
+}
+
+FloatRect Ship::getBounds()
+{
+	return shape->getGlobalBounds();
+}
+
+float Ship::getRadius()
+{
+	return Vector2Length(Vector2f(getGlobalBounds().width * getScale().x, getGlobalBounds().height * getScale().y)) / 2;
 }
 
 float Ship::getMaxSpeed()
@@ -123,21 +210,37 @@ bool Ship::damageShip(Vector2f hitPos)
 {
 	shieldSfx.setPitch(static_cast<float>(RandomRange(0, 45)/100) + 1);
 	shieldSfx.play();
-	Vector2f pushDir = this->sprite.getPosition() - hitPos;
-	timer = 0.5f;
-	sprite.setColor(Color::Red);
+	Vector2f pushDir = Vector2Normalize(this->getPosition() - hitPos);
+	timer = 0.02f;
+	setColor(Color::Red);
 	acceleration = 0;
-	velocity.x += Vector2Normalize(pushDir).x;
-	velocity.y -= Vector2Normalize(pushDir).y;
+	velocity.x += pushDir.x * 0.01f;
+	velocity.y -= pushDir.y * 0.01f;
+
+	velocity = { Clamp(velocity.x, -maxVelocity, maxVelocity), Clamp(velocity.y, -maxVelocity, maxVelocity) };
+
 	shield--;
 
 	if (shield <= 0)
 	{
-		if (engineSfx.getStatus() == SoundSource::Status::Playing) engineSfx.stop();
 		explodeSfx.play();
 	}
 
 	return shield <= 0;
+}
+
+bool Ship::intersectBulletsWithBound(FloatRect bound)
+{
+	for (int i = 0; i < bulletsAmount; i++)
+	{
+		if (shoots[i]->getActive() && shoots [i]->getGlobalBounds().intersects(bound))
+		{
+			shoots[i]->setActive(false);
+			shoots[i]->resetLifeSpawn();
+			return true;
+		}
+	}
+	return false;
 }
 
 void Ship::update(float deltaTime)
@@ -148,16 +251,35 @@ void Ship::update(float deltaTime)
 	}
 	else
 	{
-		sprite.setColor(Color::White);
+		setColor(Color::White);
 	}
 
 	lookAtMousePoint();
 	moveForward(deltaTime);
 	screenLimitsLogic();
+
+	shootBullet();
+
+	bulletsUpdate(deltaTime);
+
+	shape->setPosition(getPosition());
 }
 
 void Ship::draw(RenderWindow& window)
 {
 	mousePos = static_cast<Vector2f>(Mouse::getPosition(window));
-	window.draw(sprite);
+	window.draw(*this);
+
+	for (int i = 0; i < bulletsAmount; i++)
+	{
+		if(shoots[i]->getActive())
+		{
+			window.draw(*shoots[i]);
+		}
+	}
+
+#if _DEBUG
+	window.draw(*shape);
+#endif // _DEBUG
+
 }

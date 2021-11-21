@@ -4,14 +4,13 @@
 
 using namespace sf;
 
-class Meteor
+class Meteor : public Sprite
 {
 private:
-	Sprite sprite;
+	CircleShape* shape;
 	Sound explodeSfx;
 	Vector2f speed;
 	float maxSpeed;
-	float rotation;
 	bool active;
 
 	void movement(float deltaTime);
@@ -19,7 +18,10 @@ private:
 
 public:
 	Meteor(Texture& texture, Vector2f position, float rotation, Vector2f scale, Vector2f speed, float maxSpeed, bool active);
+	~Meteor() override;
+	void setExplosionSfx(SoundBuffer& buffer);
 	float getRadius();
+	FloatRect getBounds();
 	bool getActive();
 	void setActive(bool active);
 	void explode();

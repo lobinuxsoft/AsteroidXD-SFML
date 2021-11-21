@@ -24,7 +24,7 @@ private:
 	float offset2 = 0;
 
 	float speed1 = 0.5f;
-	float speed2 = 1.0f;
+	float speed2 = 0.75f;
 
 	float scale = 4;
 
