@@ -101,6 +101,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Class\game_objects\hp_powerup.cpp" />
     <ClCompile Include="src\Class\game_objects\shoot.cpp" />
     <ClCompile Include="src\Class\ui_objects\health_bar.cpp" />
     <ClCompile Include="src\class\scenes\gameplay_scene.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="src\class\scenes\tutorial_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Class\game_objects\hp_powerup.h" />
     <ClInclude Include="src\Class\game_objects\shoot.h" />
     <ClInclude Include="src\Class\ui_objects\health_bar.h" />
     <ClInclude Include="src\class\scenes\gameplay_scene.h" />

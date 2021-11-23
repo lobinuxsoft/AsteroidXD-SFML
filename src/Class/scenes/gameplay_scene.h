@@ -3,6 +3,7 @@
 
 #include "class/game_objects/ship.h"
 #include "class/game_objects/meteor.h"
+#include "class/game_objects/hp_powerup.h"
 #include "class/ui_objects/health_bar.h"
 #include "class/ui_objects/button.h"
 #include "my_utils/maths_utils.h"
@@ -36,7 +37,10 @@ private:
 	SoundBuffer laserShipSfxBuffer;
 	Ship* ship;
 
-	// Los disparos
+	// Powerups
+	Texture powerupTexture;
+	SoundBuffer powerupBuffer;
+	HpPowerup* hpPowerup;
 
 	// Los meteoros
 	const int meteorsSpeed = 1000;

@@ -240,11 +240,19 @@ GameplayScene::GameplayScene()
     meteorExplosion.loadFromFile("resources/sfx/explosionCrunch_000.ogg");
 
     // Ship creation
-    ship = new Ship(shipTexture, { screenWidth * 0.5f, screenHeight * 0.5f }, 0, { 0.5f,0.5f });
+    ship = new Ship(shipTexture, Vector2f(screenWidth * 0.5f, screenHeight * 0.5f), 0, Vector2f(0.5f,0.5f));
     ship->setEngineSfx(engineSfxBuffer);
     ship->setShieldSfx(shiledSfxBuffer);
     ship->setExplodeSfx(explodeShipSfxBuffer);
     ship->setLaserSfx(laserShipSfxBuffer);
+
+    // Powerup creation
+    powerupTexture.loadFromFile("resources/images/icon_plusSmall.png");
+    powerupTexture.setSmooth(true);
+    powerupBuffer.loadFromFile("resources/sfx/question_003.ogg");
+
+    hpPowerup = new HpPowerup(powerupTexture, Vector2f(screenWidth * 0.75f, screenHeight * 0.5f), 0.0f, Vector2f(1.25f,1.25f), Vector2f(0, 0), meteorsSpeed, true);
+    hpPowerup->setSoundFx(powerupBuffer);
 
     // UI 
     font.loadFromFile("resources/fonts/Roboto-Medium.ttf");
@@ -255,18 +263,18 @@ GameplayScene::GameplayScene()
     clickBufferSfx.loadFromFile("resources/sfx/select_003.ogg");
     clickPlayBufferSfx.loadFromFile("resources/sfx/confirmation_002.ogg");
 
-    continueButton = new Button({ screenWidth * 0.5f, screenHeight * 0.55f }, "CONTINUE", 20);
+    continueButton = new Button(Vector2f(screenWidth * 0.5f, screenHeight * 0.55f), "CONTINUE", 20);
     continueButton->setFont(font);
     continueButton->setClickSfx(clickPlayBufferSfx);
     continueButton->setPivot({ 0.5f, 1 });
-    backButton = new Button({ screenWidth * 0.5f, screenHeight * 0.6f }, "VOLVER", 20);
+    backButton = new Button(Vector2f(screenWidth * 0.5f, screenHeight * 0.6f), "VOLVER", 20);
     backButton->setFont(font);
     backButton->setClickSfx(clickBufferSfx);
     backButton->setPivot({ 0.5f, 1 });
-    pauseButton = new Button({ screenWidth * 0.95f, screenHeight * 0.05f }, "II", 40, Color::Blue);
+    pauseButton = new Button(Vector2f(screenWidth * 0.95f, screenHeight * 0.05f), "II", 40, Color::Blue);
     pauseButton->setFont(font);
     pauseButton->setClickSfx(clickBufferSfx);
-    pauseButton->setPivot({ 1,1 });
+    pauseButton->setPivot(Vector2f(1,1));
 
     //Meteors Creation
     createMeteors();
@@ -275,6 +283,7 @@ GameplayScene::GameplayScene()
 GameplayScene::~GameplayScene()
 {
 	delete ship;
+    delete hpPowerup;
 
     // Delete Meteors
     for (Meteor* m : bigMeteor)
@@ -324,6 +333,17 @@ void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, 
         {
             ship->update(deltaTime);
 
+            hpPowerup->update(deltaTime);
+
+            if (hpPowerup->getActive())
+            {
+                if (hpPowerup->getBounds().intersects(ship->getBounds()))
+                {
+                    hpPowerup->setActive(false);
+                    ship->resetShield();
+                }
+            }
+
             // Meteors logic: big meteors
             for (int i = 0; i < maxBigMeteors; i++)
             {
@@ -354,6 +374,8 @@ void GameplayScene::updateAndDraw(SceneState& sceneState, RenderWindow& window, 
 
     // Draw second
     ship->draw(window);
+
+    hpPowerup->draw(window);
 
     // Meteors draw: big meteors
     for (int i = 0; i < maxBigMeteors; i++)
