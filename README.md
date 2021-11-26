@@ -1,26 +1,33 @@
 
-<body bgcolor="black">
 
- <span style="color:white">
+ <span style = "color: Red">
+<h1> Asteroid xD </h1> 
+<span /style>
 
-# <center>Asteroid SFML &#128064;  </center>
 ---
-El juego esta siendo desarrollado por [**Matias Galarza**](https://www.linkedin.com/in/lobinux/) y [**Ramiro Guzman**](https://www.linkedin.com/in/ramiro-guzman/), estudiantes de 1er año en la carrera de **Desarrollo de Videojuegos**.
 
-## *`Introducción`*
+![Glichteroids](README/background.png)
 
-> * Este juego sera un clon del clásico juego Asteroid de finales de los 70 &#128293;.
-> * El Juego se realizara en la libreria "SFML" y el ide "Visual Studio". 
 
+Creado por  [Matias Galarza](https://www.linkedin.com/in/lobinux/) y  [Ramiro Guzman](https://www.linkedin.com/in/ramiro-guzman/)
+
+<span style = "color: Blue">
+
+## `Introducción`
+> Este solo es un clon del clasico juego *"Asteroid"* creado en 1979, este fue programado con la la libreria **SFML** en el IDE Visual Studio 2022 
+---
 ## *`Mecánicas Base`*
 
-* ✦ El juego arranca con 4 asteroides grandes moviéndose hacia una dirección random de la
+* ✦El juego arranca con 4 asteroides grandes moviéndose en una dirección random de la
 pantalla.
 
 * ✦ Cuando un asteroide llega a un extremo de la pantalla reaparece en el otro extremo.
+
 * ✦ La nave se controla con el mouse, la nave mira con respecto a la posicion del mouse, se acelera con el boton derecho del mouse y con el izquierdo disparas.
+
 * ✦ Cuando la nave del jugador llega a un extremo de la pantalla, debe suceder lo mismo que
 con los asteroides, se reubica en el extremo opuesto.
+
 * ✦ Cuando un disparo alcanza un asteroide, se otorgan 10 puntos y sucede lo siguiente:
 
     * >✓ Si el asteroide es grande, se subdivide en dos medianos.
@@ -29,26 +36,26 @@ con los asteroides, se reubica en el extremo opuesto.
 
     * >✓ Si el asteroide es pequeño, desaparece.
 
-* >✦ Cuando un asteroide toca la nave, si la misma no posee el escudo activado, explota y se
-pierde una vida.💀
+* ✦ Cuando un asteroide toca la nave, si la misma no posee el escudo activado, esta recibe el impacto reduciendo su vida y se torna de color roja.
 
-* >✦ Los asteroides no colisionan entre sí (se traspasan).
+* ✦ Los asteroides no colisionan entre sí (se traspasan).
 
-* >✦ El jugador arranca con 3 vidas, al perderla todas, el juego termina.
+* ✦ El jugador arranca con la barra de vidas llena, al terminarse esa barra, el juego termina.
 
+## *`Gameplay`*
 
-## ***`Gameplay`***
+![Glichteroids](README/captura1.png)
+![Glichteroids](README/captura2.png)
+![Glichteroids](README/captura3.png)
+![Glichteroids](README/captura4.png)
 
-![Glichteroids](README/background.jpg) 
-![Glichteroids](README/background.jpg)
-![Glichteroids](README/background.jpg)
-![Glichteroids](README/background.jpg)
-
+</style>
+ <span style = "color: Yellow">
 
 ## *`Implementaciones futuras`*
 
-* >✦ Soporte multijugador Online.
+* >✦ Sistema de juego Multijugador Online
+* >✦ Uso de Joistick jugar
 * >✦ Efectos visuales.
 
-</span>
-</body>
+</style>
