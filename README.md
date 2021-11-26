@@ -1,4 +1,7 @@
-# Asteroid xD 
+
+ <span style = "color: Red">
+<h1> Asteroid xD </h1> 
+<span /style>
 
 ---
 
@@ -7,6 +10,7 @@
 
 Creado por  [Matias Galarza](https://www.linkedin.com/in/lobinux/) y  [Ramiro Guzman](https://www.linkedin.com/in/ramiro-guzman/)
 
+<span style = "color: Blue">
 
 ## `Introducción`
 > Este solo es un clon del clasico juego *"Asteroid"* creado en 1979, este fue programado con la la libreria **SFML** en el IDE Visual Studio 2022 
@@ -39,13 +43,18 @@ con los asteroides, se reubica en el extremo opuesto.
 
 ## *`Gameplay`*
 
-![Image1](README/Captura1.jpg)
-![Image2](README/Captura2.jpg)
-![Image3](README/Captura3.jpg)
-![Image4](README/Captura4.jpg)
+![Glichteroids](README/Captura1.jpg)
+![Glichteroids](README/Captura2.jpg)
+![Glichteroids](README/Captura3.jpg)
+![Glichteroids](README/Captura4.jpg)
+
+</style>
+ <span style = "color: Yellow">
 
 ## *`Implementaciones futuras`*
 
 * >✦ Sistema de juego Multijugador Online
 * >✦ Uso de Joistick jugar
 * >✦ Efectos visuales.
+
+</style>
