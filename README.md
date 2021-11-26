@@ -1,10 +1,8 @@
-
-
 # Asteroid xD 
 
 ---
 
-![Glichteroids](README/background.png)
+![Glichteroids](README/Background.jpg)
 
 
 Creado por  [Matias Galarza](https://www.linkedin.com/in/lobinux/) y  [Ramiro Guzman](https://www.linkedin.com/in/ramiro-guzman/)
@@ -41,14 +39,13 @@ con los asteroides, se reubica en el extremo opuesto.
 
 ## *`Gameplay`*
 
-![Glichteroids](README/captura1.png)
-![Glichteroids](README/captura2.png)
-![Glichteroids](README/captura3.png)
-![Glichteroids](README/captura4.png)
+![Image1](README/Captura1.jpg)
+![Image2](README/Captura2.jpg)
+![Image3](README/Captura3.jpg)
+![Image4](README/Captura4.jpg)
 
 ## *`Implementaciones futuras`*
 
 * >✦ Sistema de juego Multijugador Online
 * >✦ Uso de Joistick jugar
 * >✦ Efectos visuales.
-
