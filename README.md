@@ -1,5 +1,3 @@
-
-
 # Asteroid xD 
 
 ---
@@ -51,4 +49,3 @@ con los asteroides, se reubica en el extremo opuesto.
 * >✦ Sistema de juego Multijugador Online
 * >✦ Uso de Joistick jugar
 * >✦ Efectos visuales.
-
