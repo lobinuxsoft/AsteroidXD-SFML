@@ -2,7 +2,7 @@
 
 ---
 
-![Glichteroids](README/background.jpg)
+![Glichteroids](README/Background.jpg)
 
 
 Creado por  [Matias Galarza](https://www.linkedin.com/in/lobinux/) y  [Ramiro Guzman](https://www.linkedin.com/in/ramiro-guzman/)
@@ -39,10 +39,10 @@ con los asteroides, se reubica en el extremo opuesto.
 
 ## *`Gameplay`*
 
-![Image1](README/captura1.jpg)
-![Image2](README/captura2.jpg)
-![Image3](README/captura3.jpg)
-![Image4](README/captura4.jpg)
+![Image1](README/Captura1.jpg)
+![Image2](README/Captura2.jpg)
+![Image3](README/Captura3.jpg)
+![Image4](README/Captura4.jpg)
 
 ## *`Implementaciones futuras`*
 
