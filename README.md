@@ -41,10 +41,10 @@ con los asteroides, se reubica en el extremo opuesto.
 
 ## *`Gameplay`*
 
-![Glichteroids](README/captura1.jpg)
-![Glichteroids](README/captura2.jpg)
-![Glichteroids](README/captura3.jpg)
-![Glichteroids](README/captura4.jpg)
+![Image1](README/captura1.jpg)
+![Image2](README/captura2.jpg)
+![Image3](README/captura3.jpg)
+![Image4](README/captura4.jpg)
 
 ## *`Implementaciones futuras`*
 
