@@ -48,7 +48,6 @@ con los asteroides, se reubica en el extremo opuesto.
 ![Glichteroids](README/Captura3.jpg)
 ![Glichteroids](README/Captura4.jpg)
 
-</style>
  <span style = "color: Yellow">
 
 ## *`Implementaciones futuras`*
@@ -56,5 +55,3 @@ con los asteroides, se reubica en el extremo opuesto.
 * >✦ Sistema de juego Multijugador Online
 * >✦ Uso de Joistick jugar
 * >✦ Efectos visuales.
-
-</style>
